@@ -20,7 +20,7 @@ This is a living document. Everything here reflects current practice. If somethi
 6. `06-delivery.md` — Per-client delivery checklists (Hotstar, Netflix, Prime, etc.)
 7. `07-client-communication.md` — Frame.io etiquette, notes logging, response protocols
 8. `10-contributing.md` — How to propose changes to the Book
-9. `11-ladder.md` — Role competencies and progression
+
 
 ## Status conventions
 
