@@ -41,7 +41,7 @@ If any of the above fails, you don't have a delivery yet. You have a delivery pr
 | 1 | Conformist / associate | Builds the delivery package from the frozen master. Runs first-pass QC on the package itself (file integrity, filename, slate). |
 | 2 | Lead conformist | Final QC pass. Runs platform-specific validation tooling (Photon for IMF, DCP-O-Matic test for DCP). Signs validation. |
 | 3 | Lead colorist | Verifies the master version used matches the approved master. Signs creative. |
-| 4 | CEO | **First delivery to a new client only.** Final ship authorization. After the first delivery is accepted, repeat deliveries follow the 1–3 chain without CEO sign-off. |
+| 4 | | **First delivery to a new client only.** Final ship authorization. After the first delivery is accepted, repeat deliveries follow the 1–3 chain without CEO sign-off. |
 
 Status: `[PROPOSAL]` on the four-step chain — particularly the CEO-only-on-first-delivery rule. Ratify or modify at the next monthly review.
 
