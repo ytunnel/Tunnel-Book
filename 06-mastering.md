@@ -12,7 +12,7 @@ Mastering is the once-per-title work that sits between the colorist's final appr
 
 Three things follow from this principle, and they shape the rest of the chapter:
 
-1. **Master is display-referred, not scene-referred.** Tunnel archives in ProRes 4444 XQ in the *output* space, not in DWG. We accept that re-deriving a different output later is not free — it is a re-grade decision, not a re-encode. This is intentional. Display-referred masters preserve trim-pass intent that DWG archives don't.
+1. **Master is display-referred, not scene-referred.** Tunnel archives in ProRes 4444 XQ in the *output* space. We accept that re-deriving a different output later is not free — it is a re-grade decision, not a re-encode. This is intentional. Display-referred masters preserve trim-pass intent that DWG archives don't.
 2. **Audio and captions belong to the deliverable, not the master.** Tunnel's masters are picture-only ProRes archives. Audio is muxed at the IMF / DCP / mezzanine packaging step, never baked into the master.
 3. **One master per output space, never one master "with optional flags."** HDR is its own master. SDR is its own master. Theatrical P3-D65 is its own master. There is no "master with HDR enabled."
 
@@ -27,7 +27,7 @@ Every long-form title produces, at minimum, the masters required by its delivery
 | **HDR (long-form)** | ProRes 4444 XQ | PQ Rec.2020, target peak `[PROPOSAL]` 1000 nits | Once HDR grade is approved |
 | **SDR (long-form)** | ProRes 4444 XQ | Rec.709 Gamma 2.4 | After DV trim pass; derived from HDR via the trim |
 | **Theatrical** | ProRes 4444 XQ | P3-D65 `[PROPOSAL]` (DCDM derived from this) | After theatrical trim pass on DCI-calibrated monitor |
-| **Commercial / web (SDR)** | ProRes 4444 XQ | Rec.709 Gamma 2.4 | The dominant ad master format |
+| **Commercial / web (SDR)** | ProRes 4444 XQ | Rec.709 Gamma 2.4/2.2| The dominant ad master format |
 | **Commercial / web (HDR)** | ProRes 4444 XQ | PQ Rec.2020 | Rare, but exists for hero ad campaigns |
 
 **Storage:** every archive master lives in `/07_Renders/Masters/` in the project folder, with a strict filename pattern:
@@ -55,7 +55,7 @@ The HDR master is graded first and is the canonical creative. SDR and DV are der
 
 ### Static metadata
 
-Every HDR master carries ST.2086 static metadata:
+Every HDR master carries ST.2084 static metadata:
 
 - **MaxCLL** — measured at master export, not nominal. Use Resolve's HDR analysis or an external scope; record the actual measured value.
 - **MaxFALL** — same.
@@ -116,7 +116,7 @@ Tunnel-licensed, in-house, single-trim-drives-both-derivatives.
 ### Things we don't yet know — open questions for the post-delivery debrief
 
 1. Whether Resolve's IMF export handles the Hotstar v1.3 spec end-to-end without intermediate steps.
-2. Whether Photon's validation surface matches Hotstar's intake QC (i.e. a Photon-clean IMP may still fail Hotstar QC for reasons we haven't seen yet).
+2. Whether Photon's validation surface matches Hotstar's intake QC 
 3. Audio mux specifics — whether sound vendor delivers in IMF-ready WAV/MXF or whether Tunnel re-wraps.
 4. Caption sync tolerance and validation tooling.
 5. Whether the IMF supplemental delivery model (separate CPL for re-runs) is supported by Resolve or requires external tooling.
@@ -149,7 +149,6 @@ In-house DCP authoring. Trim pass on a DCI-calibrated monitor before encode.
 ### Frame rate
 
 - **24fps** default for theatrical.
-- **25fps** when the distributor specifies (some Indian theatrical contexts) — `[PROPOSAL]` confirm Tunnel's standing default and exception rule.
 
 ### DCP package contents
 
