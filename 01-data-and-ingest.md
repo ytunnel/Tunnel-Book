@@ -6,6 +6,23 @@ How media gets onto the server, where it lives, and how the pools stay usable fo
 
 ---
 
+## What Goes Where
+
+The one table to have open if you're not sure where something lands. Detail and reasoning for each row is in the sections below.
+
+| Media type | Destination | Notes |
+|---|---|---|
+| Raw camera trims | `color01` (`Z:`) → `DATA/.../TRIMS/` | Active project media, ingested off the card. See [Trim Protocol](#trim-protocol). |
+| Optimised media | `opt_med` (`O:`) | Resolve reads and writes optimised media **directly on `opt_med`** — there's no local staging step first. See [Optimised Media Management](#optimised-media-management). |
+| Resolve render / gallery cache | `I:` / `cache` (local to this workstation) | Local-only scratch space — not shared, not backed up, not part of pool routing, and **not the same thing as optimised media on `opt_med`.** If this drive is wiped, nothing project-critical is lost; Resolve just has to rebuild cache. |
+| Grade renders / delivery masters | `output` (`Y:`) → `DATA/.../RENDERS/` | See [Server & Pool Structure](#server--pool-structure). |
+
+### Why this matters
+
+The single most common mix-up for anyone new is treating the local `I:/cache` drive as if it's the same thing as `opt_med`, because both are "the fast SSD thing Resolve uses." They're not related: `opt_med` is shared studio media that other people's sessions depend on; `I:/cache` is private scratch space for this workstation's Resolve instance and can be cleared at any time without asking anyone.
+
+---
+
 ## Server & Pool Structure
 
 Tunnel runs three storage pools. They are deliberately separate — not partitions of one big pool — because having multiple machines read and write the same pool at once over the studio's 10G switch causes contention: dropped frames on playback, slow ingest, sluggish scrubbing. Splitting by role keeps read-heavy and write-heavy traffic off each other.
@@ -22,7 +39,7 @@ Local drives on the grading workstation (never a substitute for the pools above 
 |---|---|---|
 | `C:` | OS | — |
 | `D:` / `TUNNEL_IT` | Local utility | 223 GB |
-| `I:` / `cache` | Local cache (Resolve cache, render cache) | 1.81 TB |
+| `I:` / `cache` | Resolve render/gallery cache — local scratch only, **not** optimised media | 1.81 TB |
 
 ### Why this matters
 
