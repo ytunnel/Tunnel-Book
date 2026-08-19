@@ -165,12 +165,15 @@ Numbered steps for ingesting raw trims onto the server:
 4. **Locate or create the category folder** — `ADVERTISEMENT`, `LONG FORMAT`, or `MUSIC VIDEO`. If nothing fits, flag it (see [Exceptions](#exceptions-1) above) rather than picking the closest match.
 5. **Locate or create `PROJECT/[project name]`**, and the standard subfolders inside it (`TRIMS`, `GRABS`, `OFFLINE_XML`, `PREVIEW`, `RENDERS`, `CHCEK`, `VFX`) if this is a new project.
 6. **Copy trims into `TRIMS/`.** Never move directly off the source card/drive without a verified copy landing first.
-7. **Verify before clearing the source.** Confirm clip count and total duration on `color01` match the camera card/drive before that card is formatted or returned. This is the single check that catches a bad or partial ingest before it's unrecoverable.
-8. **Route VFX media through `VFX/`**, not `TRIMS/`. Plates going out and shots coming back follow the V1/V2/V3 layering convention in [02-timeline-prep.md](02-timeline-prep.md) once they reach the timeline.
+7. **Keep a minimum 50-frame handle on each side of the usable range when trimming down from camera originals.** Never cut a trim tighter than that at ingest, even if the edit's cut points suggest less is needed — this is the buffer everything downstream (reframes, extended cuts, VFX pulls) draws on.
+8. **Verify before clearing the source.** Confirm clip count and total duration on `color01` match the camera card/drive before that card is formatted or returned. This is the single check that catches a bad or partial ingest before it's unrecoverable.
+9. **Route VFX media through `VFX/`**, not `TRIMS/`. Plates going out and shots coming back follow the V1/V2/V3 layering convention in [02-timeline-prep.md](02-timeline-prep.md) once they reach the timeline.
+
+A note on handle lengths at two different stages, so they don't get conflated: **50 frames** is the handle kept when trims are cut down from camera originals at ingest (this section). **12 frames** is the separate minimum [02-timeline-prep.md](02-timeline-prep.md) requires on *online, conformed* clips once a project reaches conform — a later, tighter checkpoint on already-trimmed media. Losing the distinction and treating 12 frames as sufficient at ingest is how a trim ends up too tight for a later reframe.
 
 ### Why this matters
 
-Trims are the one category of media in this pipeline that's frequently irreplaceable if lost before the source card is cleared — camera originals aren't sitting anywhere else. Getting the pool and the verification step right at ingest is cheap; re-shooting or explaining a gap in delivered footage is not.
+Trims are the one category of media in this pipeline that's frequently irreplaceable if lost before the source card is cleared — camera originals aren't sitting anywhere else. Getting the pool, the handle length, and the verification step right at ingest is cheap; re-shooting or explaining a gap in delivered footage is not.
 
 ### The failure mode we're preventing
 
@@ -201,6 +204,7 @@ A note on `CHCEK`: this Book documents current practice, including its rough edg
 Before a card or drive is cleared:
 
 - [ ] Trims copied to `color01` (`Z:`), not `opt_med` or `output`
+- [ ] Trims carry at least 50 frames of handle on each side of the usable range
 - [ ] Date / colorist / category / project folders correct — none created speculatively in the wrong branch
 - [ ] Clip count and total duration on server verified against the source card/drive
 - [ ] VFX-bound media routed to `VFX/`, not `TRIMS/`
@@ -212,6 +216,7 @@ Before a card or drive is cleared:
 ## Anti-patterns
 
 - **Ingesting to whichever pool has visible free space** — pool choice is about role and contention, not which drive letter looks emptiest.
+- **Trimming to the edit's exact cut points instead of the standard 50-frame handle** — tight trims save a few gigabytes now and cost a re-ingest (or an unrecoverable gap) the moment something downstream needs more than the edit used.
 - **Clearing a card on the assumption the copy worked** — verify clip count and duration first, every time. This is the step people skip when rushed, and it's the one that matters most.
 - **Letting optimised media outlive project delivery on `opt_med`** — the shared pool with the least headroom is the last place to let files linger past their reason for being there.
 - **Force-fitting a project into the nearest category or colorist folder** — flag the gap instead of quietly picking the closest match; that's how the folder scheme silently drifts.
